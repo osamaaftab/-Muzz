@@ -16,8 +16,8 @@ A Message app illustrating Android development best practices with jetpack compo
 - MockK
 - ML Kit
 
-#Screenshot
-![](Screenshot_1.jpg)
+# Screenshot
+<img src="Screenshot_1.jpg" alt="Alt text" width="300" height="200">
 
 <b>Modular Architecture:</b>
 The app adopts a modular architecture, promoting separation of components for better maintenance and scalability:
