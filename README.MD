@@ -1,5 +1,5 @@
 # android-test-assignment
-A Message app illustrating Android development best practices with jetpack compose.
+A Messaging app illustrating Android development best practices with jetpack compose.
 
 # Features
 - Message history
