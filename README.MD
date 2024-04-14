@@ -17,7 +17,7 @@ A Message app illustrating Android development best practices with jetpack compo
 - ML Kit
 
 # Screenshot
-<img src="Screenshot_1.jpg" alt="Alt text" width="300" height="700">
+<img src="Screenshot_1.jpg" alt="Alt text" width="350" height="700">
 
 <b>Modular Architecture:</b>
 The app adopts a modular architecture, promoting separation of components for better maintenance and scalability:
