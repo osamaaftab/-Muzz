@@ -140,22 +140,25 @@ class ChatViewModel(
     }
 
     private fun addDateItemIfNeeded(lastMessageTime: Long?, timeToShow: Long) {
-
         if (lastMessageTime != null) {
-            val oneHourInMillis = 60 * 60 * 1000 // 1 hour in milliseconds
             val currentTimeMillis = System.currentTimeMillis()
+            val timeDifference = currentTimeMillis - lastMessageTime
+            val oneHourInMillis = 60 * 60 * 1000 // 1 hour in milliseconds
 
-            if (currentTimeMillis - lastMessageTime > oneHourInMillis) {
-                val sameTimeItemAddedAlready = chatItemList.any { item ->
-                    item.chatItemType == ChatItemType.DATE && (item.data as? ChatData.Date)?.value == getCurrentTimeFormatted(
-                        timeToShow
-                    )
+            if (timeDifference > oneHourInMillis) {
+                val formattedTime = getCurrentTimeFormatted(timeToShow)
+
+                // Check if a date item already exists for the given time
+                val isNewDateItemNeeded = chatItemList.none {
+                    it.chatItemType == ChatItemType.DATE && (it.data as? ChatData.Date)?.value == formattedTime
                 }
-                if (!sameTimeItemAddedAlready) {
+
+                // Add a new date item only if it's needed
+                if (isNewDateItemNeeded) {
                     chatItemList.add(
                         ChatItemModel(
                             ChatItemType.DATE,
-                            ChatData.Date(getCurrentTimeFormatted(timeToShow))
+                            ChatData.Date(formattedTime)
                         )
                     )
                 }
