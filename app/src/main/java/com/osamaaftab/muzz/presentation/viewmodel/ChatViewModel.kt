@@ -146,12 +146,19 @@ class ChatViewModel(
             val currentTimeMillis = System.currentTimeMillis()
 
             if (currentTimeMillis - lastMessageTime > oneHourInMillis) {
-                chatItemList.add(
-                    ChatItemModel(
-                        ChatItemType.DATE,
-                        ChatData.Date(getCurrentTimeFormatted(timeToShow))
+                val sameTimeItemAddedAlready = chatItemList.any { item ->
+                    item.chatItemType == ChatItemType.DATE && (item.data as? ChatData.Date)?.value == getCurrentTimeFormatted(
+                        timeToShow
                     )
-                )
+                }
+                if (!sameTimeItemAddedAlready) {
+                    chatItemList.add(
+                        ChatItemModel(
+                            ChatItemType.DATE,
+                            ChatData.Date(getCurrentTimeFormatted(timeToShow))
+                        )
+                    )
+                }
             }
         }
     }
