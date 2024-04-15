@@ -18,17 +18,19 @@ class ChatRepositoryImp(
 
 
     override suspend fun getChatMessages(): Flow<Resource<List<MessageModel>>> = flow {
-        try {
-            emit(Resource.Success(localDataSource.getChatMessages().map {
+        val result = runCatching {
+            localDataSource.getChatMessages().map {
                 MessageModel(
                     messageType = MessageType.valueOf(it.messageType),
                     messageContent = it.messageContent,
                     time = it.time
                 )
-            }))
-        } catch (e: Exception) {
-            emit(Resource.Error(errorModel = errorHandle.traceErrorException(e)))
+            }
         }
+        emit(result.fold(
+            onSuccess = { Resource.Success(it) },
+            onFailure = { Resource.Error(errorModel = errorHandle.traceErrorException(it)) }
+        ))
     }
 
     override suspend fun sendMessageAndGetReply(message: MessageModel): Flow<Resource<MessageModel>> =
